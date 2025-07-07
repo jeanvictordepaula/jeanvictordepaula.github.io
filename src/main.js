@@ -45,3 +45,16 @@ const vrButtonHTML = `
 `;
 document.body.insertAdjacentHTML('beforeend', vrButtonHTML);
 
+// Garante que o botão VR sempre abre na mesma aba, mesmo se o navegador tentar forçar nova guia
+(function fixVrBtn() {
+  const vrBtn = document.querySelector('.vr-btn');
+  if (vrBtn) {
+    vrBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.location.href = vrBtn.getAttribute('href');
+    });
+  } else {
+    setTimeout(fixVrBtn, 50);
+  }
+})();
+
