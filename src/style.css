@@ -1,0 +1,311 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+
+#app, html, body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.sketchfab-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Esconde 100px da direita e 40px da parte inferior do iframe do Sketchfab */
+.sketcfab-embed,
+.sketchfab-embed {
+  width: calc(100vw + 100px + 40px);
+  height: calc(100vh + 44px + 40px);
+  margin-top: -44px;
+  margin-left: -40px;
+  margin-bottom: -42px;
+  margin-right: -100px;
+  display: block;
+  border: none;
+  position: relative;
+}
+
+/*
+ * Ajuste para o embed preencher todo o viewport
+ */
+.sketchfab-embed-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.sketchfab-embed-wrapper iframe {
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  min-width: 100vw;
+  border: none;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.sketchfab-embed-wrapper p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 2;
+  background: rgba(255,255,255,0.8);
+  margin: 0;
+  padding: 8px 0 8px 8px;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 32px 0 0 120px; /* 120px da esquerda para não sobrepor o modelo, 32px do topo */
+  pointer-events: none;
+  z-index: 3;
+}
+
+.info {
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 0.5rem;
+  max-width: 350px;
+  pointer-events: auto;
+  margin-left: 0;
+  margin-top: 0;
+}
+
+/* Reposiciona os botões para não cobrir o conteúdo do modelo 3D */
+.buttons {
+  position: absolute;
+  top: 32px;
+  right: 120px; /* fora da área oculta da direita */
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  pointer-events: auto;
+}
+
+.buttons button {
+  background: #646cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7em 1.5em;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.buttons button:hover {
+  background: #535bf2;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.vanilla:hover {
+  filter: drop-shadow(0 0 2em #f7df1eaa);
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/*
+ * Reposiciona o bloco .controls para não ficar sobre áreas ocultas do iframe
+ * Fixa no canto superior direito, com espaçamento seguro
+ */
+.controls {
+  position: fixed;
+  top: 16px;
+  right: 120px; /* 100px da direita ocultos + 20px de margem */
+  z-index: 1000;
+  background: rgba(30,30,30,0.92);
+  border-radius: 12px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+  padding: 18px 24px;
+  max-width: 420px;
+  color: #fff;
+  pointer-events: auto;
+}
+
+/* Estiliza a logo da marca maior, com leve sombra e fundo transparente */
+/* Círculo de fundo da logo */
+.brand-logo-bg {
+  position: fixed;
+  top: 96px;
+  left: 120px;
+  width: 192px;
+  height: 192px;
+  z-index: 1001;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Logo sem arredondamento, centralizada no círculo */
+.brand-logo {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  display: block;
+  border-radius: 0;
+  box-shadow: none;
+  filter: none;
+  pointer-events: auto;
+}
+
+@media (max-width: 900px) {
+  .brand-logo-bg {
+    width: 120px;
+    height: 120px;
+    left: 32px;
+    top: 8px;
+  }
+}
+@media (max-width: 600px) {
+  .brand-logo-bg {
+    width: 64px;
+    height: 64px;
+    left: 8px;
+    top: 8px;
+  }
+}
+
+/* Estilo para o botão de VR no canto inferior direito */
+.vr-btn {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;
+  z-index: 1002;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  border-radius: 50%;
+  text-decoration: none;
+}
+.vr-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+}
+
+@media (max-width: 600px) {
+  .vr-btn {
+    right: 12px;
+    bottom: 12px;
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}

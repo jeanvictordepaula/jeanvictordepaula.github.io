@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VR - Traço Livre</title>
+    <style>
+      html, body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: #000;
+        overflow: hidden;
+      }
+      .vr-iframe {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        border: none;
+        background: #000;
+        z-index: 1;
+        display: block;
+      }
+      .vr-back-btn {
+        position: fixed;
+        top: 16px;
+        left: 8px;
+        z-index: 10;
+        background: rgba(30,30,30,0.18);
+        border: none;
+        border-radius: 50%;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0.25;
+        transition: opacity 0.2s, background 0.2s;
+        padding: 0;
+      }
+      .vr-back-btn:hover, .vr-back-btn:focus {
+        opacity: 0.85;
+        background: rgba(30,30,30,0.55);
+      }
+      .vr-back-btn svg {
+        width: 28px;
+        height: 28px;
+        display: block;
+      }
+      .vr-back-btn svg path {
+        stroke: #fff;
+        stroke-width: 3.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+      }
+      .vr-loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(20,20,20,0.92);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        transition: opacity 0.5s;
+      }
+      .vr-loader.hide {
+        opacity: 0;
+        pointer-events: none;
+      }
+      .vr-spinner {
+        border: 6px solid #444;
+        border-top: 6px solid #fff;
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+        animation: spin 1s linear infinite;
+        margin-bottom: 18px;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .vr-loading-text {
+        color: #fff;
+        font-size: 1.3em;
+        font-family: system-ui, Arial, sans-serif;
+        opacity: 0.85;
+      }
+      @media (max-width: 600px) {
+        .vr-back-btn {
+          top: 6px;
+          left: 4px;
+          width: 36px;
+          height: 36px;
+        }
+        .vr-back-btn svg {
+          width: 20px;
+          height: 20px;
+        }
+        .vr-loader .vr-loading-text {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <iframe class="vr-iframe" allowfullscreen allow="autoplay; fullscreen; xr-spatial-tracking" src="https://sketchfab.com/models/291020f3ba7b4d6fa6393edf1a1921b2/embed?annotation=0&annotations_visible=0&autospin=0&autostart=1&camera=1&cardboard=1&dnt=0&preload=1&transparent=0&ui_animations=1&ui_annotations=1&ui_ar=1&ui_fullscreen=1&ui_help=1&ui_hint=0&ui_infos=1&ui_inspector=1&ui_settings=1&ui_stop=1&ui_theme=0&ui_vr=1&ui_watermark=1&ui_watermark_link=1"></iframe>
+    <button class="vr-back-btn" onclick="window.location.href='/'" title="Voltar">
+      <svg viewBox="0 0 32 32"><path d="M22 6 L10 16 L22 26"/></svg>
+    </button>
+    <div class="vr-loader" id="vr-loader">
+      <div class="vr-spinner"></div>
+      <div class="vr-loading-text">Carregando experiência VR...</div>
+    </div>
+    <script>
+      setTimeout(function() {
+        document.getElementById('vr-loader').classList.add('hide');
+      }, 3000);
+    </script>
+  </body>
+</html>
